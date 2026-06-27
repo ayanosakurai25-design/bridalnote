@@ -16,7 +16,7 @@ function TodoListPage() {
 
   const completedCount = todos.filter((todo) => todo.completed).length;
   const deleteTodo = async (id: number) => {
-    await fetch("/api/todos", {
+    await fetch(`/api/todos/${id}`, {
       method: "DELETE",
     });
 
@@ -29,7 +29,7 @@ function TodoListPage() {
 
     const updatedCompleted = !targetTodo.completed;
 
-    await fetch("/api/todos", {
+    await fetch(`/api/todos/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -93,12 +93,13 @@ function TodoListPage() {
               className="group flex h-10 w-10 select-none items-center justify-center rounded-lg border border-zinc-100 bg-white leading-8 text-[#6B5B53] shadow-[0_-1px_0_0px_#d4d4d8_inset,0_0_0_1px_#f4f4f5_inset,0_0.5px_0_1.5px_#fff_inset] transition-all duration-300 hover:bg-zinc-50 active:shadow-[-1px_0px_1px_0px_#e4e4e7_inset,1px_0px_1px_0px_#e4e4e7_inset,0px_0.125rem_1px_0px_#d4d4d8_inset]"
               aria-label="Add Todo"
             >
-              <span className="flex 
+              <span
+                className="flex 
               items-center 
               transition-transform 
               duration-200 
-              group-active:translate-y-[1px]">
-                
+              group-active:translate-y-[1px]"
+              >
                 <svg
                   width="15"
                   height="15"
@@ -144,7 +145,7 @@ function TodoListPage() {
                     type="checkbox"
                     checked={todo.completed}
                     onChange={() => toggleTodo(todo.id)}
-                    className="w-5 h-5"
+                    className="w-5 h-5 accent-[#B99E8A]"
                   />
 
                   <div>
@@ -170,8 +171,8 @@ function TodoListPage() {
                   <span
                     className={`px-3 py-1 rounded-full text-sm font-medium ${
                       todo.completed
-                        ? "bg-gray-100 text-gray-500"
-                        : "bg-rose-100 text-[#DCB39C]"
+                        ? "bg-[#F3F0EC] text-[#9A8B82]"
+                        : "bg-[#F8F5F1] text-[#6B5B53]"
                     }`}
                   >
                     {new Date(todo.dueDate).toLocaleDateString("ja-JP", {
@@ -186,7 +187,7 @@ function TodoListPage() {
                       setSelectedTodoId(todo.id);
                       setShowDeleteModal(true);
                     }}
-                    className="text-red-500 hover:text-red-700 text-sm font-medium"
+                    className="text-[#8c7869] hover:text-[#5f4e42] text-sm font-medium transition"
                   >
                     削除
                   </button>
@@ -232,7 +233,7 @@ function TodoListPage() {
                   setShowDeleteModal(false);
                   setSelectedTodoId(null);
                 }}
-                className="px-4 py-2 bg-rose-400 text-white rounded-lg hover:bg-[#DCB39C] transition"
+                className="px-4 py-2 bg-[#8C7869] text-white rounded-lg hover:bg-[#6B5B53] transition"
               >
                 削除する
               </button>

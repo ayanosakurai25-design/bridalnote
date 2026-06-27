@@ -25,7 +25,7 @@ function GuestListPage() {
   ).length;
 
   const changeStatus = async (id: number, newStatus: string) => {
-    await fetch("/api/guests", {
+    await fetch(`/api/guests/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -43,14 +43,14 @@ function GuestListPage() {
   };
 
   const deleteGuest = async (id: number) => {
-    await fetch("/api/guests", {
+    await fetch(`/api/guests/${id}`, {
       method: "DELETE",
     });
 
     setGuests(guests.filter((guest) => guest.id !== id));
   };
   useEffect(() => {
-    fetch("/api/guests")
+    fetch(`/api/guests/`)
       .then((res) => res.json())
       .then((data) => setGuests(data));
   }, []);
@@ -84,11 +84,17 @@ function GuestListPage() {
               >
                 <p className="text-gray-500">登録ゲスト {guests.length} 名</p>
 
-                <p className="text-[#DCB39C]">出席 {attendingCount} 名</p>
+                <p className="text-[#8C7869] font-medium">
+                  出席 {attendingCount} 名
+                </p>
 
-                <p className="text-[#DCB39C]">欠席 {absentCount} 名</p>
+                <p className="text-[#8C7869] font-medium">
+                  欠席 {absentCount} 名
+                </p>
 
-                <p className="text-[#DCB39C]">未回答 {pendingCount} 名</p>
+                <p className="text-[#8C7869] font-medium">
+                  未回答 {pendingCount} 名
+                </p>
               </div>
             </div>
 
@@ -147,15 +153,28 @@ function GuestListPage() {
                 sm:items-center hover:shadow-lg transition"
               >
                 <div>
-                  <p className="font-semibold text-lg">{guest.name}</p>
-                  <p className="text-gray-500 text-sm">{guest.relation}</p>
+                  <p className="font-semibold text-lg text-[#6B5B53]">
+                    {guest.name}
+                  </p>
+                  <p className="text-[#9A8B82] text-sm">{guest.relation}</p>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-2">
                   <select
                     value={guest.status}
                     onChange={(e) => changeStatus(guest.id, e.target.value)}
-                    className="border rounded-lg px-2 py-1 text-sm"
+                    className="
+                    border
+                    border-[#D9CEC5]
+                    rounded-lg
+                    px-3
+                    py-2
+                    text-sm
+                    bg-white
+                    text-[#6B5B53]
+                    focus:outline-none
+                    focus:ring-2
+                    focus:ring-[#B99E8A]"
                   >
                     <option value="未回答">未回答</option>
                     <option value="出席">出席</option>
@@ -167,7 +186,12 @@ function GuestListPage() {
                       setSelectedGuestId(guest.id);
                       setShowDeleteModal(true);
                     }}
-                    className="text-red-500 hover:text-red-700 text-sm font-medium"
+                    className="
+                    text-[#8C7869]
+                    hover:text-[#5F4E42]
+                    text-sm
+                    font-medium
+                    transition"
                   >
                     削除
                   </button>
@@ -204,7 +228,12 @@ function GuestListPage() {
                   setShowDeleteModal(false);
                   setSelectedGuestId(null);
                 }}
-                className="px-4 py-2 bg-[#DCB39C] text-white rounded-lg hover:bg-[#DCB39C] transition"
+                className="px-4 py-2 
+                bg-[#8C7869]
+                text-white
+                rounded-lg
+                hover:bg-[#6B5B53]
+                transition"
               >
                 削除する
               </button>
