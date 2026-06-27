@@ -59,7 +59,7 @@ function TodoCreatePage() {
 
     const newCompleted = !todo.completed;
 
-    await fetch("/api/todos", {
+    await fetch(`/api/todos/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -79,7 +79,7 @@ function TodoCreatePage() {
   const completedCount = todos.filter((todo) => todo.completed).length;
 
   const deleteTodo = async (id: number) => {
-    await fetch("/api/todos", {
+    await fetch(`/api/todos/${id}`, {
       method: "DELETE",
     });
 

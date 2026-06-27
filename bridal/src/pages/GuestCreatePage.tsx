@@ -58,7 +58,7 @@ function GuestCreatePage() {
     setStatus("未回答");
   };
   const deleteGuest = async (id: number) => {
-    const res = await fetch("/api/guests", {
+    const res = await fetch(`/api/guests/${id}`, {
       method: "DELETE",
     });
 
@@ -71,7 +71,7 @@ function GuestCreatePage() {
   };
 
   const updateGuestStatus = async (id: number, newStatus: string) => {
-    const res = await fetch(`/api/guests`, {
+    const res = await fetch(`/api/guests/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

@@ -21,7 +21,7 @@ db.query("SELECT 1", (err) => {
   }
 });
 
-app.get("/todos", (req, res) => {
+app.get("/api/todos", (req, res) => {
   db.query("SELECT * FROM todos", (err, results) => {
     if (err) {
       console.error(err);
@@ -33,7 +33,7 @@ app.get("/todos", (req, res) => {
   });
 });
 
-app.get("/guests", (req, res) => {
+app.get("/api/guests", (req, res) => {
   db.query("SELECT * FROM guests", (err, results) => {
     if (err) {
       console.error(err);
@@ -45,7 +45,7 @@ app.get("/guests", (req, res) => {
   });
 });
 
-app.post("/guests", (req, res) => {
+app.post("/api/guests", (req, res) => {
   const { name, relation, status } = req.body;
 
   db.query(
@@ -68,7 +68,7 @@ app.post("/guests", (req, res) => {
   );
 });
 
-app.put("/guests/:id", (req, res) => {
+app.put("/api/guests/:id", (req, res) => {
   const id = req.params.id;
   const { status } = req.body;
 
@@ -86,7 +86,7 @@ app.put("/guests/:id", (req, res) => {
   });
 });
 
-app.delete("/guests/:id", (req, res) => {
+app.delete("/api/guests/:id", (req, res) => {
   const id = req.params.id;
 
   db.query("DELETE FROM guests WHERE id = ?", [id], (err, result) => {
@@ -111,7 +111,7 @@ app.delete("/guests/:id", (req, res) => {
   });
 });
 
-app.post("/todos", (req, res) => {
+app.post("/api/todos", (req, res) => {
   const { taskName, dueDate, completed } = req.body;
 
   db.query(
@@ -134,7 +134,7 @@ app.post("/todos", (req, res) => {
   );
 });
 
-app.delete("/todos/:id", (req, res) => {
+app.delete("/api/todos/:id", (req, res) => {
   const id = req.params.id;
 
   db.query("DELETE FROM todos WHERE id = ?", [id], (err, result) => {
@@ -159,7 +159,7 @@ app.delete("/todos/:id", (req, res) => {
   });
 });
 
-app.put("/todos/:id", (req, res) => {
+app.put("/api/todos/:id", (req, res) => {
   const id = req.params.id;
   const { completed } = req.body;
 
