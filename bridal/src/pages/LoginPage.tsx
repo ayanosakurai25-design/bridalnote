@@ -16,15 +16,15 @@ function LoginPage() {
   return (
     <div className="min-h-screen bg-stone-50 flex items-center justify-center">
       <div className="bg-white p-8 rounded-3xl shadow-md w-full max-w-md">
-        <h1 className="text-3xl font-bold text-center text-rose-400 mb-2">
-          💍 Bridal Note
+        <h1 className=" title text-3xl font-bold text-center text-[#6B5B53] mb-2">
+          Bridal Note
         </h1>
 
-        <p className="text-center text-gray-500 mb-8">ログイン</p>
+        <p className="text-center text-gray-500 mb-5 mt-3">Login</p>
 
         <form onSubmit={handleLogin}>
           <div className="mb-4">
-            <label className="block mb-2">メールアドレス</label>
+            <label className="block mb-2">email</label>
 
             <input
               type="email"
@@ -35,7 +35,7 @@ function LoginPage() {
           </div>
 
           <div className="mb-6">
-            <label className="block mb-2">パスワード</label>
+            <label className="block mb-2">password</label>
 
             <input
               type="password"
@@ -47,7 +47,7 @@ function LoginPage() {
 
           <button
             type="submit"
-            className="w-full bg-rose-400 hover:bg-rose-500 text-white py-3 rounded-lg transition"
+            className="w-full m-button py-3 rounded-lg transition"
           >
             ログイン
           </button>

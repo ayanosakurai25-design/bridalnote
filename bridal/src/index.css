@@ -1,1 +1,76 @@
 @import "tailwindcss";
+
+body {
+  color: #6b5b53;
+  margin: 0;
+  font-family: "Zen Maru Gothic", sans-serif;
+}
+
+.title {
+  font-family: "Zen Old Mincho", serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #6b5b53;
+}
+
+h2,
+h3 {
+  color: #6b5b53;
+  font-family: "Zen Old Mincho", serif;
+}
+
+.logo {
+  width: 52px;
+  height: auto;
+}
+
+.add-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: #8c7869;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  transition:
+    color 0.45s ease,
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media screen and (min-width: 1080px) {
+  .add-button {
+    font-size: 18px;
+  }
+}
+
+.add-button:hover {
+  color: #5f4e42;
+  transform: translateX(4px);
+}
+
+.m-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 10px 28px;
+
+  background: #8c7869;
+  color: #fff;
+
+  border: 1px solid #8c7869;
+  border-radius: 9999px;
+
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+
+  transition: all 0.35s ease;
+}
+
+.m-button:hover {
+  background: transparent;
+  color: #8c7869;
+}

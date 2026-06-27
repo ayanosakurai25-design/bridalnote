@@ -20,14 +20,14 @@ function DashboardPage() {
 
   const completedCount = todos.filter((todo) => todo.completed).length;
   useEffect(() => {
-    fetch("http://localhost:3000/todos")
+    fetch("/api/todos")
       .then((res) => res.json())
       .then((data) => {
         setTodoCount(data.length);
         setTodos(data);
       });
 
-    fetch("http://localhost:3000/guests")
+    fetch("/api/guests")
       .then((res) => res.json())
       .then((data) => {
         setGuestCount(data.length);
@@ -53,78 +53,69 @@ function DashboardPage() {
       <div className="min-h-screen bg-stone-50 p-4 sm:p-8">
         {/* タイトル・ボタンエリア */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-          <h1 className="text-3xl font-bold text-[#6B5B53]">Dashboard</h1>
+          <h1 className=" title text-3xl font-bold]">HOME</h1>
 
-          <div className="flex gap-1 sm:gap-3">
+          <div className="flex gap-3 sm:gap-3">
             <Link
               to="/todos/new"
               className="
-              bg-[#6B5B53]
-              text-white
-              rounded-full
               px-3
               py-3
               whitespace-nowrap
               text-sm"
             >
-              <span className="sm:hidden">+ TODO</span>
-              <span className="hidden sm:inline">+ TODO追加</span>
+              <button className="add-button">+ TODO</button>
             </Link>
 
             <Link
               to="/guests/new"
               className="
-              bg-[#6B5B53]
-              text-white
-              rounded-full
               px-3
               py-3
               whitespace-nowrap
               text-sm"
             >
-              <span className="sm:hidden">+ GUEST</span>
-              <span className="hidden sm:inline">+ ゲスト追加</span>
+              <button className="add-button">+ GUEST</button>
             </Link>
           </div>
         </div>
 
         {/* 件数カード */}
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
+        <div className="grid md:grid-cols-2 gap-8 mb-8">
           <div className="bg-white rounded-3xl shadow-md p-8">
-            <h2 className="text-gray-500 text-sm mb-3">TODO</h2>
+            <h2 className="text-[#6B5B53] text-md mb-3">TODO</h2>
+            <div className="flex items-end gap-5 mt-2">
+              <p className="text-4xl sm:text-5xl font-bold text-[#6B5B53]">
+                {todoCount}
+              </p>
 
-            <p className="text-4xl sm:text-5xl font-bold text-[#6B5B53]">
-              {todoCount}
-            </p>
-
-            <p className="text-gray-500 mt-2">件</p>
-
-            <div className="mt-4">
-              <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+              <p className="text-[#6B5B53] mt-2">件</p>
+            </div>
+            <div className="mt-6">
+              <span className="px-3 py-1 bg-[#DCB39C] text-white rounded-full text-sm font-medium">
                 完了 {completedCount} 件
               </span>
             </div>
           </div>
 
           <div className="bg-white rounded-3xl shadow-md p-8">
-            <h2 className="text-gray-500 text-sm mb-3">GUEST</h2>
-
-            <p className="text-4xl sm:text-5xl font-bold text-[#6B5B53]">
-              {guestCount}
-            </p>
-
-            <p className="text-gray-500 mt-2">名</p>
-
-            <div className="mt-4 flex flex-wrap gap-2">
-              <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+            <h2 className="text-[#6B5B53] text-md mb-3">GUEST</h2>
+            <div className="flex items-end gap-5 mt-2">
+              <p className="text-4xl sm:text-5xl font-bold text-[#6B5B53]">
+                {guestCount}
+              </p>
+              <p className="text-[#6B5B53] mt-2">名</p>
+            </div>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <span className="px-3 py-1 bg-[#DCB39C] text-white rounded-full text-sm font-medium">
                 出席 {attendingCount}
               </span>
 
-              <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">
+              <span className="px-3 py-1 bg-[#DCB39C] text-white rounded-full text-sm font-medium">
                 欠席 {absentCount}
               </span>
 
-              <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">
+              <span className="px-3 py-1 bg-[#DCB39C] text-white rounded-full text-sm font-medium">
                 未回答 {pendingCount}
               </span>
             </div>
@@ -133,7 +124,7 @@ function DashboardPage() {
 
         {/* 最近のTODO */}
         <div className="bg-white rounded-3xl shadow-md p-8">
-          <h2 className="text-xl font-bold mb-4">最近のTODO</h2>
+          <h2 className="text-xl font-bold mb-4 text-[#6B5B53]">最近のTODO</h2>
 
           <ul className="space-y-3">
             {[...todos]
@@ -146,14 +137,14 @@ function DashboardPage() {
                 <Link
                   to="/todos"
                   key={todo.id}
-                  className="block border-b pb-2 hover:text-rose-500 transition break-word"
+                  className="block border-b pb-2 hover:text-[#6B5B53] transition break-word"
                 >
                   {new Date(todo.dueDate).toLocaleDateString("ja-JP")}
                   {" ｜ "}
                   {todo.taskName}
 
                   {Boolean(todo.completed) && (
-                    <span className="ml-2 text-green-600 text-sm">✓ 完了</span>
+                    <span className="ml-2 text-[#DCB39C] text-sm">✓ 完了</span>
                   )}
                 </Link>
               ))}

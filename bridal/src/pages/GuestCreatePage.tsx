@@ -15,7 +15,7 @@ function GuestCreatePage() {
   const [guests, setGuests] = useState<Guest[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/guests")
+    fetch("/api/guests")
       .then((res) => res.json())
       .then((data) => {
         setGuests(data);
@@ -32,7 +32,7 @@ function GuestCreatePage() {
       return;
     }
 
-    const res = await fetch("http://localhost:3000/guests", {
+    const res = await fetch("/api/guests", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -58,7 +58,7 @@ function GuestCreatePage() {
     setStatus("未回答");
   };
   const deleteGuest = async (id: number) => {
-    const res = await fetch(`http://localhost:3000/guests/${id}`, {
+    const res = await fetch("/api/guests", {
       method: "DELETE",
     });
 
@@ -71,7 +71,7 @@ function GuestCreatePage() {
   };
 
   const updateGuestStatus = async (id: number, newStatus: string) => {
-    const res = await fetch(`http://localhost:3000/guests/${id}`, {
+    const res = await fetch(`/api/guests`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -101,50 +101,64 @@ function GuestCreatePage() {
         <div className="max-w-lg mx-auto">
           <div className="bg-white p-6 rounded-xl shadow-md">
             {/* タイトルと戻るボタン */}
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
-              <h2 className="text-2xl font-bold">ゲスト追加</h2>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-5 mb-6">
+              <h2 className="text-2xl font-bold">Add Guest</h2>
 
               <Link
                 to="/guests"
-                className="px-3 py-1 border border-rose-300 rounded-full text-rose-500 hover:bg-rose-50 transition"
+                className="group flex items-center gap-2 text-[#8c7869] hover:text-[#5f4e42] transition-colors duration-300"
               >
-                ← 戻る
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 15 15"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4"
+                >
+                  <path
+                    d="M8.84 3.34a.5.5 0 0 1 0 .71L5.9 7l2.94 2.95a.5.5 0 0 1-.71.7L4.84 7.35a.5.5 0 0 1 0-.7l3.29-3.3a.5.5 0 0 1 .71 0Z"
+                    fill="currentColor"
+                  />
+                </svg>
+
+                <span>Back</span>
               </Link>
             </div>
 
             {/* フォーム */}
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
-                <label className="block mb-2 font-medium">名前</label>
+                <label className="block mb-2 font-medium">name</label>
 
                 <input
                   type="text"
                   placeholder="例：田中花子"
                   value={guestName}
                   onChange={(e) => setGuestName(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-rose-300"
+                  className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#6B5B53]"
                 />
               </div>
 
               <div className="mb-4">
-                <label className="block mb-2 font-medium">続柄</label>
+                <label className="block mb-2 font-medium">relation</label>
 
                 <input
                   type="text"
                   placeholder="例：友人"
                   value={relation}
                   onChange={(e) => setRelation(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-rose-300"
+                  className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#6B5B53]"
                 />
               </div>
 
               <div className="mb-6">
-                <label className="block mb-2 font-medium">出欠</label>
+                <label className="block mb-2 font-medium">attendance</label>
 
                 <select
                   value={status}
                   onChange={(e) => setStatus(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-rose-300"
+                  className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#6B5B53]"
                 >
                   <option>未回答</option>
                   <option>出席</option>
@@ -156,52 +170,59 @@ function GuestCreatePage() {
                 <button
                   type="submit"
                   className="
+                  m-button
                   w-full
                   sm:w-auto
-                  bg-rose-400
-                  hover:bg-rose-500
-                  text-white
                   px-5
                   py-2
-                  rounded-lg
-                  shadow-md
                   transition"
                 >
                   登録
                 </button>
               </div>
             </form>
-            <div className="mt-8">
-              <h3 className="text-xl font-bold mb-4">
-                登録したゲスト ({guests.length}件)
+            <div className="mt-10">
+              <h3 className="text-xl font-semibold text-[#6B5B53] mb-4">
+                Guests <span className="text-[#9A8B82]">({guests.length})</span>
               </h3>
 
-              <ul>
+              <ul className="divide-y divide-[#E8E1DB]">
                 {guests.map((guest) => (
                   <li
                     key={guest.id}
                     className="
-                    border-b
-                    py-2
+                    py-4
                     flex
                     flex-col
                     sm:flex-row
                     justify-between
                     items-start
                     sm:items-center
-                    gap-2"
+                    gap-3"
                   >
-                    <span>
-                      {guest.name} / {guest.relation}
-                    </span>
+                    <div>
+                      <p className="font-medium text-[#6B5B53]">{guest.name}</p>
+                      <p className="text-sm text-[#9A8B82]">{guest.relation}</p>
+                    </div>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-4">
                       <select
                         value={guest.status}
                         onChange={(e) =>
                           updateGuestStatus(guest.id, e.target.value)
                         }
-                        className="border rounded p-1"
+                        className="
+                        rounded-lg
+                        border
+                        border-[#D9CEC5]
+                        px-3
+                        py-2
+                        text-sm
+                        bg-white
+                        text-[#6B5B53]
+                        focus:outline-none
+                        focus:ring-2
+                        focus:ring-[#B99E8A]"
                       >
                         <option>未回答</option>
                         <option>出席</option>
@@ -210,9 +231,16 @@ function GuestCreatePage() {
 
                       <button
                         onClick={() => deleteGuest(guest.id)}
-                        className="text-red-500 hover:text-red-700"
+                        className="
+                        text-sm
+                        text-[#8c7869]
+                        transition-all
+                        duration-300
+                        hover:text-[#5f4e42]
+                        hover:underline
+                        underline-offset-4"
                       >
-                        削除
+                        Remove
                       </button>
                     </div>
                   </li>

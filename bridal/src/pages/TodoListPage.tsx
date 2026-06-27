@@ -16,7 +16,7 @@ function TodoListPage() {
 
   const completedCount = todos.filter((todo) => todo.completed).length;
   const deleteTodo = async (id: number) => {
-    await fetch(`http://localhost:3000/todos/${id}`, {
+    await fetch("/api/todos", {
       method: "DELETE",
     });
 
@@ -29,7 +29,7 @@ function TodoListPage() {
 
     const updatedCompleted = !targetTodo.completed;
 
-    await fetch(`http://localhost:3000/todos/${id}`, {
+    await fetch("/api/todos", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -47,7 +47,7 @@ function TodoListPage() {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3000/todos")
+    fetch("/api/todos")
       .then((res) => res.json())
       .then((data) => setTodos(data));
   }, []);
@@ -69,11 +69,11 @@ function TodoListPage() {
             mb-8"
           >
             <div>
-              <h1 className="text-3xl font-bold">TODO一覧</h1>
+              <h1 className="title text-3xl font-bold">TODO</h1>
 
               <div
                 className="
-                mt-2
+                mt-3
                 flex
                 flex-wrap
                 gap-x-4
@@ -82,27 +82,39 @@ function TodoListPage() {
               >
                 <p className="text-gray-500">登録タスク {todos.length} 件</p>
 
-                <p className="text-green-600 font-medium">
+                <p className="text-[#DCB39C] font-medium">
                   完了タスク {completedCount} 件
                 </p>
               </div>
             </div>
 
             <Link
-              to="/guests/new"
-              className="
-              bg-[#6B5B53]
-              text-white
-              rounded-full
-              px-5
-              py-3
-              text-sm
-              whitespace-nowrap
-              self-start
-              sm:self-auto"
+              to="/todos/new"
+              className="group flex h-10 w-10 select-none items-center justify-center rounded-lg border border-zinc-100 bg-white leading-8 text-[#6B5B53] shadow-[0_-1px_0_0px_#d4d4d8_inset,0_0_0_1px_#f4f4f5_inset,0_0.5px_0_1.5px_#fff_inset] transition-all duration-300 hover:bg-zinc-50 active:shadow-[-1px_0px_1px_0px_#e4e4e7_inset,1px_0px_1px_0px_#e4e4e7_inset,0px_0.125rem_1px_0px_#d4d4d8_inset]"
+              aria-label="Add Todo"
             >
-              <span className="sm:hidden">+ TODO</span>
-              <span className="hidden sm:inline">+ TODO追加</span>
+              <span className="flex 
+              items-center 
+              transition-transform 
+              duration-200 
+              group-active:translate-y-[1px]">
+                
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 15 15"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4"
+                >
+                  <path
+                    d="M8 2.75C8 2.47386 7.77614 2.25 7.5 2.25C7.22386 2.25 7 2.47386 7 2.75V7H2.75C2.47386 7 2.25 7.22386 2.25 7.5C2.25 7.77614 2.47386 8 2.75 8H7V12.25C7 12.5261 7.22386 12.75 7.5 12.75C7.77614 12.75 8 12.5261 8 12.25V8H12.25C12.5261 8 12.75 7.77614 12.75 7.5C12.75 7.22386 12.5261 7 12.25 7H8V2.75Z"
+                    fill="currentColor"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
             </Link>
           </div>
 
@@ -129,7 +141,6 @@ function TodoListPage() {
               >
                 <div className="flex items-center gap-3">
                   <input
-                  
                     type="checkbox"
                     checked={todo.completed}
                     onChange={() => toggleTodo(todo.id)}
